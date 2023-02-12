@@ -19,7 +19,7 @@ public class PostRepository {
     private AtomicLong longID = new AtomicLong(0);
 
     public List<Post> all() {
-        return new ArrayList<>();
+        return new ArrayList<>(map.values());
     }
 
     public Optional<Post> getById(long id) {
