@@ -1,5 +1,6 @@
 package ru.netology.servlet;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.netology.controller.PostController;
 import ru.netology.repository.PostRepository;
 import ru.netology.service.PostService;
@@ -15,12 +16,12 @@ public class MainServlet extends HttpServlet {
   private static final String DELETE = "DELETE";
   private static final String API = "/api/posts";
   private static final String Match = "/api/posts/\\d+";
+  private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("ru.netology");
 
   @Override
   public void init() {
-    final var repository = new PostRepository();
-    final var service = new PostService(repository);
-    controller = new PostController(service);
+
+    controller = context.getBean(PostController.class);
   }
 
   @Override
@@ -55,6 +56,10 @@ public class MainServlet extends HttpServlet {
       e.printStackTrace();
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
+  }
+  @Override
+  public void destroy(){
+    context.close();
   }
 }
 
