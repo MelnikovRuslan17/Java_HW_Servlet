@@ -1,6 +1,7 @@
 package ru.netology.servlet;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.netology.config.MyConfig;
 import ru.netology.controller.PostController;
 import ru.netology.repository.PostRepository;
 import ru.netology.service.PostService;
@@ -16,7 +17,7 @@ public class MainServlet extends HttpServlet {
   private static final String DELETE = "DELETE";
   private static final String API = "/api/posts";
   private static final String Match = "/api/posts/\\d+";
-  private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("ru.netology");
+  private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MyConfig.class);
 
   @Override
   public void init() {
